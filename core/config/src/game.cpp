@@ -1,6 +1,6 @@
-#include "game.hpp"
+#include "config/include/game.hpp"
 #include "engine/include/state_machine.hpp"
-#include "states/include/main_menu_state.hpp"
+#include "gui/include/main_menu_state.hpp"
 
 /*
     This Game object holds all of the primary game code and keeps it out of main.

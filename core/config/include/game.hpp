@@ -1,7 +1,7 @@
 #include "engine/include/asset_manager.hpp"
 #include "engine/include/input_manager.hpp"
 #include "engine/include/state_machine.hpp"
-#include "global.hpp"
+#include "config/include/global.hpp"
 #include "platform/include/platform.hpp"
 
 // causes source files to only be loaded once

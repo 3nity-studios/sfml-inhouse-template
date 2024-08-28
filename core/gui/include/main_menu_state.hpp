@@ -1,8 +1,8 @@
 #pragma once
 
-#include "game.hpp"
-#include "global.hpp"
-#include "states/include/state.hpp"
+#include "config/include/game.hpp"
+#include "config/include/global.hpp"
+#include "gui/include/state.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 

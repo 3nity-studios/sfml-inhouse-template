@@ -1,7 +1,7 @@
 # platform
 
-set(INCROOT ${PROJECT_SOURCE_DIR}/source/platform/include)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/source/platform/src)
+set(INCROOT ${PROJECT_SOURCE_DIR}/core/platform/include)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/core/platform/src)
 
 set(RM_PLATFORM_EXTRA_LIBRARIES "")
 
@@ -42,7 +42,7 @@ add_library(
 target_include_directories(
   route-master_platform ${warning_guard}
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/platform/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/core/platform/include>"
 )
 
 target_compile_features(route-master_platform PUBLIC ${RM_REQUIRED_CXX})

@@ -4,8 +4,8 @@
 #include <memory>
 #include <stack>
 
-#include "global.hpp"
-#include "states/include/state.hpp"
+#include "config/include/global.hpp"
+#include "gui/include/state.hpp"
 
 namespace Engine
 {

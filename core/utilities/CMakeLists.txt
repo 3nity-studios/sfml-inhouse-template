@@ -1,5 +1,5 @@
-set(INCROOT ${PROJECT_SOURCE_DIR}/source/utilities/include)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/source/utilities/src)
+set(INCROOT ${PROJECT_SOURCE_DIR}/core/utilities/include)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/core/utilities/src)
 
 set(
   SRC
@@ -15,7 +15,7 @@ add_library(
 target_include_directories(
   route-master_utilities ${warning_guard}
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/utilities/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/core/utilities/include>"
 )
 
 target_compile_features(route-master_utilities PUBLIC ${RM_REQUIRED_CXX})

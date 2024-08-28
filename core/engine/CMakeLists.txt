@@ -1,7 +1,7 @@
 # engine
 
-set(INCROOT ${PROJECT_SOURCE_DIR}/source/engine/include)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/source/engine/src)
+set(INCROOT ${PROJECT_SOURCE_DIR}/core/engine/include)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/core/engine/src)
 
 set(
   SRC
@@ -22,7 +22,7 @@ add_library(
 target_include_directories(
   route-master_engine ${warning_guard}
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/engine/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/core/engine/include>"
 )
 
 target_compile_features(route-master_engine PUBLIC ${RM_REQUIRED_CXX})

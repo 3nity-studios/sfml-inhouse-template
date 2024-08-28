@@ -1,6 +1,6 @@
-#include "states/include/main_menu_state.hpp"
-#include "game.hpp"
-#include "global.hpp"
+#include "gui/include/main_menu_state.hpp"
+#include "config/include/game.hpp"
+#include "config/include/global.hpp"
 #include <string>
 
 MainMenuState::MainMenuState(GameDataRef data) : _data(data)
