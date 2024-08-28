@@ -2,8 +2,6 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "Don't fetch libraries every
 
 include(FetchContent)
 
-# actually, all the find_package() lines have gone untested so far.
-
 if(RM_USE_SYSTEM_JSON)
   find_package(nlohmann_json 3.11.3 REQUIRED)
 else()
@@ -15,30 +13,29 @@ else()
 endif()
 
 if(RM_USE_SYSTEM_DESIGNAR) # one can only dream huh? c:
-  find_package(designar 2.0.1 REQUIRED)
+  find_package(Designar 2.0.1 REQUIRED)
 else()
   FetchContent_Declare(
-    designar
+    Designar
     GIT_REPOSITORY https://github.com/3nity-studios/DeSiGNAR.git
     GIT_TAG v2.0.1
   )
-  FetchContent_MakeAvailable(designar)
+  FetchContent_MakeAvailable(Designar)
 endif()
 
 if(RM_USE_SYSTEM_SFML)
   find_package(
-    SFML 2.5 # should be 2.6.1
+    SFML 2.6
     COMPONENTS system window graphics audio
     REQUIRED
   )
 else()
   FetchContent_Declare(
-    sfml
-    # GIT_REPOSITORY https://github.com/SFML/SFML.git
-    # GIT_TAG 2.6.x
-    URL https://github.com/SFML/SFML/archive/refs/tags/2.6.1.zip # smaller
+    SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.6.x
     EXCLUDE_FROM_ALL
     SYSTEM
   )
-  FetchContent_MakeAvailable(sfml)
+  FetchContent_MakeAvailable(SFML)
 endif()
