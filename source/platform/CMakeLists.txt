@@ -12,7 +12,8 @@ if(RM_OS_LINUX)
     ${SRCROOT}/linux/linux_platform.cpp
   )
   source_group("" FILES ${SRC})
-  set(RM_PLATFORM_EXTRA_LIBRARIES "X11")
+  find_package(X11 REQUIRED)
+  set(RM_PLATFORM_EXTRA_LIBRARIES "${X11_LIBRARIES}")
 elseif(RM_OS_WIN32)
   set(
     SRC
