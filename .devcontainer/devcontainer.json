@@ -1,0 +1,63 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	// X11 Forwarding
+	"mounts": [
+		"source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached"
+	],
+	// Display Forwarding
+	"containerEnv": {
+		"DISPLAY": "${localEnv:DISPLAY}"
+	},
+	"remoteEnv": {
+		"DOCKER_BUILDKIT": "0"
+	},
+	// GUI Session Forwarding
+	"runArgs": [
+		"--net",
+		"host",
+		"-e",
+		"DISPLAY=:0",
+		"-e",
+		"XAUTHORITY=/tmp/.Xauthority",
+		"-v",
+		"${localEnv:HOME}/.Xauthority:/tmp/.Xauthority"
+	],
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// Currently not used in this repository.
+	// "features": {
+	// 	"ghcr.io/devcontainers/features/sshd:1": {}
+	// },
+	// // Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [
+	// 	2222
+	// ],
+	// // give port a label and open a preview of the app
+	// "portsAttributes": {
+	// 	"2222": {
+	// 		"label": "SSH Server"
+	// 	}
+	// },
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "gcc -v",
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"rioj7.command-variable",
+				"ms-vscode.cpptools",
+				"twxs.cmake",
+				"eamodio.gitlens",
+				"ms-vscode.cmake-tools"
+			]
+		}
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
