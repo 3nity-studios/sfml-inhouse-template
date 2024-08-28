@@ -23,10 +23,7 @@ set up for the time being. Plans on this are underway.
 This project makes use of [presets][1] to simplify the process of configuring
 the project. As a developer, you are recommended to always have the [latest
 CMake version][2] installed to make use of the latest Quality-of-Life
-additions. (this project uses version 3.30.2, although we are sure that it can
-use earlier versions, it hasn't been tested though so you're on your own if you
-decide to hack your way out by modifying CMakeLists, at least until we conduct
-further testing)
+additions.
 
 As a developer, you should create a `CMakeUserPresets.json` file at the root of
 the project:

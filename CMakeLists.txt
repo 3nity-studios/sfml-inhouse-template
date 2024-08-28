@@ -1,5 +1,4 @@
-# ---- Only tested with CMake 3.30.2 at the moment ----
-cmake_minimum_required(VERSION 3.30.2 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
 
 # ---- Export compile commands for completion engines ----
 set(CMAKE_EXPORT_COMPILE_COMMANDS=TRUE)

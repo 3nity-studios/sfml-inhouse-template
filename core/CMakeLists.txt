@@ -1,5 +1,4 @@
-# ---- Only tested with CMake 3.30.2 at the moment ----
-cmake_minimum_required(VERSION 3.30.2)
+cmake_minimum_required(VERSION 3.22.1)
 
 # I don't have the slightest idea what this does. But it doesn't hurt c:
 include(${PROJECT_SOURCE_DIR}/cmake/folders.cmake)
