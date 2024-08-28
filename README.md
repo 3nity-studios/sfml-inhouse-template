@@ -28,5 +28,6 @@ These are the great projects that make all of this possible:
 * [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR)
 * [SFML](https://github.com/SFML/SFML)
 * [JSON for Modern C++](https://github.com/nlohmann/json)
+* [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
 * [cmake-init](https://github.com/friendlyanon/cmake-init)
 * [Doxygen](https://github.com/doxygen/doxygen)
