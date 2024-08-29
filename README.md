@@ -171,7 +171,9 @@ For example, here's the one we're currently using:
       "name": "dev-common",
       "hidden": true,
       "inherits": ["dev-mode", "clang-tidy", "cppcheck"],
-      "cacheVariables": {}
+      "cacheVariables": {
+        "BUILD_MCSS_DOCS": "ON"
+      }
     },
     {
       "name": "dev-linux",
@@ -183,12 +185,42 @@ For example, here's the one we're currently using:
       }
     },
     {
+      "name": "dev-darwin",
+      "binaryDir": "${sourceDir}/build/dev-darwin",
+      "inherits": ["dev-common", "ci-darwin"]
+    },
+    {
+      "name": "dev-win64",
+      "binaryDir": "${sourceDir}/build/dev-win64",
+      "inherits": ["dev-common", "ci-win64"],
+      "environment": {
+        "UseMultiToolTask": "true",
+        "EnforceProcessCountAcrossBuilds": "true"
+      }
+    },
+    {
+      "name": "dev",
+      "binaryDir": "${sourceDir}/build/dev",
+      "inherits": "dev-linux",
+      "cacheVariables": {
+        "RM_USE_SYSTEM_JSON": "TRUE",
+        "RM_USE_SYSTEM_DESIGNAR": "TRUE",
+        "RM_USE_SYSTEM_SFML": "TRUE"
+      }
+    },
+    {
       "name": "dev-coverage",
       "binaryDir": "${sourceDir}/build/coverage",
       "inherits": ["dev-mode", "coverage-linux"]
     }
   ],
   "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "configuration": "Debug",
+      "jobs": 2
+    },
     {
       "name": "dev-linux",
       "configurePreset": "dev-linux",
@@ -199,7 +231,7 @@ For example, here's the one we're currently using:
   "testPresets": [
     {
       "name": "dev",
-      "configurePreset": "dev-linux",
+      "configurePreset": "dev",
       "configuration": "Debug",
       "output": {
         "outputOnFailure": true
@@ -293,6 +325,7 @@ These are the great projects that make all of this possible:
 * [SFML](https://github.com/SFML/SFML)
 * [JSON for Modern C++](https://github.com/nlohmann/json)
 * [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
+* [cmake-sfml-demo](https://github.com/danebulat/cmake-sfml-demo)
 * [cmake-init](https://github.com/friendlyanon/cmake-init)
 * [Doxygen](https://github.com/doxygen/doxygen)
 
