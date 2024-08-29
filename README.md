@@ -15,27 +15,32 @@ transport sector!
 
 ## Building and installing
 
-If you want to contribute as fast as possible, you can spin up a DevContainer
-and start developing right away with our Dockerfile (that is on the works).
+For a smooth experience, you can open the repository in Visual Studio Code with
+the DevContainer extension and start developing right away.
 
-Otherwise, keep on reading to know how to match the needed development environment.
+Otherwise, keep on reading to know how to match the needed development
+environment.
 
-### Dependencies Setup
+> [WARNING]
+> Neither building on other systems nor cross-compiling is supported for the
+> moment.
 
-There are a few options that you can modify in CMakeLists.txt like:
+### Prerequisites
 
-|             Option              |      Type      |                            Description                              |
-|         :-------------:         | :------------- |                          :-------------                             |
-| `RM_USE_EXTERNAL_JSON`          | BOOL           | Turn ON to use system's installation of nlohmann's JSON             |
-| `RM_USE_EXTERNAL_DESIGNAR`      | BOOL           | Turn ON to use system's installation of DeSiGNAR (unused)           |
-| `RM_USE_EXTERNAL_SFML`          | BOOL           | Turn ON to use system's installation of SFML                        |
+System and compiler:
+* Linux (Debian 11 or newer)
+* gcc (10 or newer) / clang (11 or newer)
 
-If you opt for not using the libraries installed in your system, then you must
-install development dependencies in order to build the libraries when
-configuring the project. (Note: DeSiGNAR is always downloaded as we roll a
-slightly modified version of the library)
+Note: this are the minimum versions on which the project's build process has
+been currently tested. Nonetheless, theoretically speaking, it should suffice
+with a C++17 compatible compiler.
 
-To build SFML on Linux you will need:
+Libraries:
+* SFML
+* DeSiGNAR
+* nlohmann's json
+
+Note that to build SFML on Linux you will need the development packages of:
 * XRandr
 * XCursor
 * UDev
@@ -46,13 +51,19 @@ To build SFML on Linux you will need:
 * GL1-Mesa
 * EGL1-Mesa
 
-These are some goodies that we use in our [workflow][3]:
-* doxygen 1.8.20
+(Optional) These are some goodies that we use in the development of our project:
 * clang-format
 * clang-tidy
 * cppcheck
+* codespell
 
-#### Linux (Debian-based) SFML dependencies
+#### Installing dependencies
+
+If you opt for not using the libraries installed in your system (see setup
+section below), then you must install development dependencies in order to build
+the libraries when configuring the project.
+(Note: DeSiGNAR is always downloaded as we roll a slightly modified version of
+this library)
 
 ```shell
 sudo apt update
@@ -68,10 +79,8 @@ sudo apt install \
     libegl1-mesa-dev
 ```
 
-#### Linux (Debian-based) Route Master dependencies
-
-These probably aren't strictly necessary to build the project but they provide
-Quality-of-Life features worth trying.
+As said, these aren't strictly necessary to build the project but they provide
+some Quality-of-Life features for development worth trying.
 
 ```shell
 sudo apt update
@@ -79,21 +88,21 @@ sudo apt install \
     clang-format \
     clang-tidy \
     cppcheck \
-    libsfml-dev \
-    libfreetype-dev \
-    libopenal-dev \
-    libflac-dev \
-    libvorbis-dev \
-    libgl1-mesa-dev \
-    libegl1-mesa-dev
+    python3-pip
+python3 -m pip install codespell
 ```
 
-TODO: Add LCOV, codespell and Doxygen 1.8.20 installation if they're gonna be
-used.
+### Setup
 
-#### Other systems
+Before diving into building, you must know that there are a few options that you
+can modify in CMakeLists.txt (or in CMakeCache with ccmake/cmake-gui), like:
 
-Have simply not been tested.
+|             Option              |      Type      |                             Description                             |
+|         :-------------:         | :------------- |                           :-------------                            |
+| `RM_USE_SYSTEM_JSON`            | BOOL           | Turn ON to use system's installation of nlohmann's JSON             |
+| `RM_USE_SYSTEM_DESIGNAR`        | BOOL           | Turn ON to use system's installation of DeSiGNAR                    |
+| `RM_USE_SYSTEM_SFML`            | BOOL           | Turn ON to use system's installation of SFML                        |
+| `RM_DEVELOPER_MODE`             | BOOL           | Turn ON to enable tests and developer targets of Route Master       |
 
 ### Build
 
@@ -110,18 +119,6 @@ cmake --build build
 An executable should be generated somewhere in the build folder (presumably
 in the build/source folder)
 
-#### ~~Building with MSVC~~
-
-~~Note that MSVC by default is not standards compliant and you need to pass some~~
-~~flags to make it behave properly. See the `flags-msvc` preset in the~~
-~~[CMakePresets.json](CMakePresets.json) file for the flags and with what~~
-~~variable to provide them to CMake during configuration.~~
-
-#### ~~Building on Apple Silicon~~
-
-~~CMake supports building on Apple Silicon properly since 3.20.1. Make sure you~~
-~~have the [latest version][1] installed.~~
-
 ### Install
 
 This project doesn't require any special command-line flags to install to keep
@@ -136,33 +133,153 @@ portable before delving into installing shenanigans (see --prefix CMake flag).
 cmake --install build
 ```
 
-### Notes
+That's it! From here on, there are some tips for developing.
 
-#### Shout-out
+## Developer information
 
-The mentioned goodies are simply not necessary in order to build the project
-(a C++17 compatible compiler, SFML, DeSiGNAR, and nlohmann's JSON should
-suffice).
+Build system targets that are only useful for developers of this project are
+hidden if the `RM_DEVELOPER_MODE` option is disabled. Enabling this
+option makes tests and other developer targets and options available. Not
+enabling this option means that you are a consumer of this project and thus you
+have no need for these targets and options (or you just wanna build a production
+release).
 
-Most of the tools mentioned were simply adopted as a by-product of using the
-incredible template provided by [cmake-init][3]
+~~Developer mode is always set to on in CI workflows.~~ No workflows have been
+set up for the time being. Plans on this are underway.
 
-#### Room for improvement
+### Presets
 
-We could probably write a script that automatically pulls all the dependencies
-and installs them in the system. (Besides CMake fetching some libraries).
+This project makes use of [presets][1] to simplify the process of configuring
+the project. As a developer, you are recommended to always have the [latest
+CMake version][2] installed to make use of the latest Quality-of-Life
+additions.
 
-A Dockerfile with batteries included is on the works.
+You should create a `CMakeUserPresets.json` file at the root of the project.
 
-> [WARNING]
-> Building on other systems nor cross-compiling have been tested. Don't expect
-> things to work fluidly just yet. Although we'd love to port Route Master to Windows
+For example, here's the one we're currently using:
 
+```json
+{
+  "version": 8,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 30,
+    "patch": 2
+  },
+  "configurePresets": [
+    {
+      "name": "dev-common",
+      "hidden": true,
+      "inherits": ["dev-mode", "clang-tidy", "cppcheck"],
+      "cacheVariables": {}
+    },
+    {
+      "name": "dev-linux",
+      "binaryDir": "${sourceDir}/build/dev-linux",
+      "inherits": ["dev-common", "ci-linux"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "dev-coverage",
+      "binaryDir": "${sourceDir}/build/coverage",
+      "inherits": ["dev-mode", "coverage-linux"]
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev-linux",
+      "configurePreset": "dev-linux",
+      "configuration": "Debug",
+      "jobs": 2
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev-linux",
+      "configuration": "Debug",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "jobs": 2,
+        "noTestsAction": "error"
+      }
+    }
+  ]
+}
+```
 
-[1]: https://cmake.org/download/
-[2]: https://cmake.org/cmake/help/latest/manual/cmake.1.html#install-a-project
-[3]: https://github.com/friendlyanon/cmake-init/
+We currently have no plans for building on platforms
+other than Linux. There might be intents of cross-compiling in a future but
+that's just not a priority right now.
 
+`CMakeUserPresets.json` is also the perfect place in which you can put all
+sorts of things that you would otherwise want to pass to the configure command
+in the terminal.
+
+See the [presets documentation][1] if you want to go down that rabbit hole.
+
+**Note**: Visual Studio Code is a great editor that can help you with this step!
+
+### Configure, build and test
+
+If you followed the above instructions, then you can configure, build and test
+the project respectively with the following commands from the project root on
+any operating system with any build system:
+
+```sh
+cmake -S . -B build --preset=dev-linux
+cmake --build build --preset=dev-linux
+ctest --preset=dev-linux
+```
+
+If you are using a compatible editor you can select the above created presets
+for automatic integration, neat! Isn't?
+
+### Developer mode targets
+
+These are targets you may invoke using the build command from above, with an
+additional `-t <target>` flag
+(for example `cmake --build build/dev-linux/ --target format-check`).
+
+#### ~~`coverage`~~
+
+Yeah... no tests.
+
+~~Available if `ENABLE_COVERAGE` is enabled. This target processes the output of~~
+~~the previously run tests when built with coverage configuration. The commands~~
+~~this target runs can be found in the `COVERAGE_TRACE_COMMAND` and~~
+~~`COVERAGE_HTML_COMMAND` cache variables. The trace command produces an info~~
+~~file by default, which can be submitted to services with CI integration. The~~
+~~HTML command uses the trace command's output to generate an HTML document to~~
+~~`<binary-dir>/coverage_html` by default.~~
+
+#### `format-check` and `format-fix`
+
+These targets run the clang-format tool on the codebase to check errors and to
+fix them respectively. Customization available using the `FORMAT_PATTERNS` and
+`FORMAT_COMMAND` cache variables.
+
+#### `run-exe`
+
+Runs the executable target `route-master_exe`.
+
+#### `spell-check` and `spell-fix`
+
+These targets run the codespell tool on the codebase to check errors and to fix
+them respectively. Customization available using the `SPELL_COMMAND` cache
+variable. We configured it to ignore CMakeLists files and uppercase words.
+
+### Note
+
+So far, for development, only Visual Studio Code with [clangd extension][3] has
+been properly tested. If you want to have code completion and get rid of
+unresolved includes you need to run cmake with `-DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE`
+if you're not using the development presets (`dev-*`)
 
 ## Contributing
 
@@ -178,3 +295,8 @@ These are the great projects that make all of this possible:
 * [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
 * [cmake-init](https://github.com/friendlyanon/cmake-init)
 * [Doxygen](https://github.com/doxygen/doxygen)
+
+
+[1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
+[2]: https://cmake.org/download/
+[3]: https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
