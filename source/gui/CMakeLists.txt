@@ -1,7 +1,7 @@
 # gui
 
-set(INCROOT ${PROJECT_SOURCE_DIR}/core/gui/include)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/core/gui/src)
+set(INCROOT ${PROJECT_SOURCE_DIR}/source/gui/include)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/source/gui/src)
 
 set(
   SRC
@@ -19,7 +19,7 @@ add_library(
 target_include_directories(
   route-master_gui ${warning_guard}
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/core/gui/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/gui/include>"
 )
 
 target_compile_features(route-master_gui PUBLIC ${RM_REQUIRED_CXX})

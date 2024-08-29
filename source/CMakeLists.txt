@@ -12,8 +12,8 @@ set(RM_OS_LINUX TRUE)
 
 # ---- Declare modules ----
 
-include_directories(${PROJECT_SOURCE_DIR}/core)
-include_directories(${PROJECT_SOURCE_DIR}/core/include)
+include_directories(${PROJECT_SOURCE_DIR}/source)
+include_directories(${PROJECT_SOURCE_DIR}/source/include)
 
 # config
 
@@ -37,8 +37,8 @@ add_subdirectory(utilities)
 
 # ---- Declare source files ----
 
-# set(INCROOT ${PROJECT_SOURCE_DIR}/core)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/core)
+# set(INCROOT ${PROJECT_SOURCE_DIR}/source)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/source)
 
 # One could argue that a GLOB might suit us better
 set(

@@ -34,7 +34,7 @@ include(cmake/third-party.cmake)
 
 # ---- Declare target ----
 
-add_subdirectory(core)
+add_subdirectory(source)
 
 # ---- Install rules ----
 

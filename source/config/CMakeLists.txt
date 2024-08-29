@@ -1,7 +1,7 @@
 #config
 
-set(INCROOT ${PROJECT_SOURCE_DIR}/core/config/include)
-set(SRCROOT ${PROJECT_SOURCE_DIR}/core/config/src)
+set(INCROOT ${PROJECT_SOURCE_DIR}/source/config/include)
+set(SRCROOT ${PROJECT_SOURCE_DIR}/source/config/src)
 
 set(
   SRC
@@ -23,7 +23,7 @@ add_library(
 target_include_directories(
   route-master_config ${warning_guard}
   PUBLIC
-  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/core/config/include>"
+  "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/config/include>"
 )
 
 target_compile_features(route-master_config PUBLIC ${RM_REQUIRED_CXX})
