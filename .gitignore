@@ -59,6 +59,7 @@ cmake-build-*/
 build/
 out/
 .cache/
+bin/
 
 ### Git ###
 # Created by git for backups. To disable backups in Git:

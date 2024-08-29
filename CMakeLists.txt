@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22.1 FATAL_ERROR)
 
 # ---- Export compile commands for completion engines ----
 set(CMAKE_EXPORT_COMPILE_COMMANDS=TRUE)
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # ---- Disabled as we're using presets ----
 # set(CMAKE_CXX_STANDARD 17) # C++17
 # set(CMAKE_CXX_STANDARD_REQUIRED ON) # is required
