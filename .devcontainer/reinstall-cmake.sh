@@ -57,3 +57,6 @@ sh "${TMP_DIR}/${CMAKE_BINARY_NAME}" --prefix=/opt/cmake --skip-license
 
 ln -s /opt/cmake/bin/cmake /usr/local/bin/cmake
 ln -s /opt/cmake/bin/ctest /usr/local/bin/ctest
+ln -s /opt/cmake/bin/ccmake /usr/local/bin/ccmake
+ln -s /opt/cmake/bin/cmake-gui /usr/local/bin/cmake-gui
+ln -s /opt/cmake/bin/cpack /usr/local/bin/cpack
