@@ -26,7 +26,13 @@
 		"-e",
 		"XAUTHORITY=/tmp/.Xauthority",
 		"-v",
-		"${localEnv:HOME}/.Xauthority:/tmp/.Xauthority"
+		"${localEnv:HOME}/.Xauthority:/tmp/.Xauthority",
+		"-v",
+        "/run/user/1000/pulse/native:/run/user/1000/pulse/native",
+        "-e",
+        "PULSE_SERVER=unix:/run/user/1000/pulse/native",
+        "-u",
+        "1000:1000"
 	],
 	
 	// Install these extensions.
