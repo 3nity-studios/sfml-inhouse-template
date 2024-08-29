@@ -1,5 +1,10 @@
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON CACHE BOOL "Don't fetch libraries everytime CMake runs")
 
+# avoid warning about DOWNLOAD_EXTRACT_TIMESTAMP in CMake 3.24+:
+if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+  cmake_policy(SET CMP0135 NEW)
+endif()
+
 include(FetchContent)
 
 if(RM_USE_SYSTEM_JSON)
@@ -19,6 +24,7 @@ else()
     Designar
     GIT_REPOSITORY https://github.com/3nity-studios/DeSiGNAR.git
     GIT_TAG v2.0.1
+    GIT_SHALLOW ON
   )
   FetchContent_MakeAvailable(Designar)
 endif()
@@ -34,6 +40,7 @@ else()
     SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
     GIT_TAG 2.6.x
+    GIT_SHALLOW ON
     EXCLUDE_FROM_ALL
     SYSTEM
   )
