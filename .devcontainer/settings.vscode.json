@@ -1,6 +1,7 @@
 {
     "C_Cpp.intelliSenseEngine": "disabled",
     "cmake.preferredGenerators": ["Unix Makefiles"],
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
     "git.autofetch": true,
     "[cpp]": {
         "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
