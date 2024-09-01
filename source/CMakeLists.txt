@@ -14,6 +14,7 @@ set(RM_OS_LINUX TRUE)
 
 include_directories(${PROJECT_SOURCE_DIR}/source)
 include_directories(${PROJECT_SOURCE_DIR}/source/include)
+include_directories(${PROJECT_BINARY_DIR}/source)
 
 # config
 
@@ -67,6 +68,13 @@ target_link_libraries(
   nlohmann_json::nlohmann_json
   Designar
 )
+
+# Note: SFML does not properly propagate its requirements and it requires
+#       OpenGL in its install interface when compiled as a static library.
+if(SFML_STATIC_LIBRARIES AND NOT IOS AND NOT WIN32)
+  find_package(OpenGL REQUIRED)
+  target_link_libraries(route-master_exe PRIVATE OpenGL::GL)
+endif()
 
 # ---- End-of-file commands ----
 

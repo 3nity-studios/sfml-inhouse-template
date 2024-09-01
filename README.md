@@ -323,6 +323,7 @@ These are the great projects that make all of this possible:
 
 * [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR)
 * [SFML](https://github.com/SFML/SFML)
+* [Catch2](https://github.com/catchorg/Catch2)
 * [JSON for Modern C++](https://github.com/nlohmann/json)
 * [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
 * [cmake-sfml-demo](https://github.com/danebulat/cmake-sfml-demo)

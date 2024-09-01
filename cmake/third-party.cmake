@@ -23,8 +23,8 @@ else()
   FetchContent_Declare(
     Designar
     GIT_REPOSITORY https://github.com/3nity-studios/DeSiGNAR.git
-    GIT_TAG v2.0.1
-    GIT_SHALLOW ON
+    GIT_TAG        v2.0.1
+    GIT_SHALLOW    ON
   )
   FetchContent_MakeAvailable(Designar)
 endif()
@@ -39,10 +39,25 @@ else()
   FetchContent_Declare(
     SFML
     GIT_REPOSITORY https://github.com/SFML/SFML.git
-    GIT_TAG 2.6.x
-    GIT_SHALLOW ON
+    GIT_TAG        2.6.x
+    GIT_SHALLOW    ON
     EXCLUDE_FROM_ALL
     SYSTEM
   )
   FetchContent_MakeAvailable(SFML)
+endif()
+
+if(RM_USE_SYSTEM_CATCH2)
+  find_package(
+    Catch2 3.7
+    REQUIRED
+  )
+else()
+  FetchContent_Declare(
+    Catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    GIT_TAG        v3.7.0
+    GIT_SHALLOW    ON
+  )
+  FetchContent_MakeAvailable(Catch2)
 endif()

@@ -1,8 +1,9 @@
-#include "lib.hpp"
+#include <catch2/catch_test_macros.hpp>
 
-auto main() -> int
+#include "config/include/config.hpp"
+
+TEST_CASE("Name is route-master", "[config]")
 {
-  auto const lib = library {};
-
-  return lib.name == "route-master" ? 0 : 1;
+  config conf;
+  REQUIRE(conf.project_name == "route-master");
 }

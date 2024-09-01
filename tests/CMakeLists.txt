@@ -4,13 +4,32 @@
 
 project(route-master-tests LANGUAGES CXX)
 
+# ---- Dependencies ----
+
+include(Catch)
+list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
+
+include_directories(${CMAKE_BINARY_DIR}/source)
+
 # ---- Tests ----
 
 add_executable(route-master_test src/route-master_test.cpp)
-target_link_libraries(route-master_test PRIVATE route-master_lib)
+target_link_libraries(
+    route-master_test PRIVATE
+    route-master_platform
+    route-master_config
+    route-master_utilities
+    route-master_engine
+    route-master_gui
+    nlohmann_json::nlohmann_json
+    Designar
+    Catch2::Catch2WithMain
+)
 target_compile_features(route-master_test PRIVATE cxx_std_17)
 
-add_test(NAME route-master_test COMMAND route-master_test)
+# add_test(NAME route-master_test COMMAND route-master_test)
+
+catch_discover_tests(route-master_test)
 
 # ---- End-of-file commands ----
 

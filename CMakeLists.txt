@@ -24,9 +24,18 @@ include(cmake/variables.cmake)
 
 # ---- Configurable options ----
 
-option(RM_USE_SYSTEM_JSON "Use system's nlohmann's JSON library" OFF)
-option(RM_USE_SYSTEM_DESIGNAR "Use system's DeSiGNAR library" OFF) # unused
-option(RM_USE_SYSTEM_SFML "Use system's SFML library" OFF)
+option(RM_USE_SYSTEM_JSON "Use system's installation of nlohmann's JSON library" OFF)
+option(RM_USE_SYSTEM_DESIGNAR "Use system's installation of DeSiGNAR library" OFF)
+option(RM_USE_SYSTEM_SFML "Use system's installation of SFML library" OFF)
+option(RM_USE_SYSTEM_CATCH2 "Use system's installation of Catch2 library" OFF)
+
+option(USE_INSTALL_RESOURCE_PATH "Set resource path to install location" OFF)
+if(NOT USE_INSTALL_RESOURCE_PATH)
+  set(RESOURCE_PATH "${PROJECT_SOURCE_DIR}/assets/")
+else()
+  set(RESOURCE_PATH 
+    "${CMAKE_INSTALL_PREFIX}/share/${CMAKE_PROJECT_NAME}/assets/")
+endif()
 
 # ---- Third Party Dependencies ----
 
@@ -34,6 +43,7 @@ include(cmake/third-party.cmake)
 
 # ---- Declare target ----
 
+include_directories(${PROJECT_SOURCE_DIR}/source)
 add_subdirectory(source)
 
 # ---- Install rules ----
@@ -57,7 +67,7 @@ if(NOT RM_DEVELOPER_MODE)
 elseif(NOT PROJECT_IS_TOP_LEVEL)
   message(
       AUTHOR_WARNING
-      "Developer mode is intended for creating DEBUG builds of Route Master"
+      "Developer mode is intended for developers of Route Master"
   )
 endif()
 

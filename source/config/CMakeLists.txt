@@ -3,12 +3,17 @@
 set(INCROOT ${PROJECT_SOURCE_DIR}/source/config/include)
 set(SRCROOT ${PROJECT_SOURCE_DIR}/source/config/src)
 
+# Generate config.hpp
+configure_file(${INCROOT}/config.hpp.in include/config.hpp)
+
+include_directories(${PROJECT_BINARY_DIR}/source/config/include)
+
 set(
   SRC
   ${INCROOT}/global.hpp
   ${INCROOT}/game.hpp
   ${SRCROOT}/game.cpp
-  ${INCROOT}/config.hpp
+  # ${INCROOT}/config.hpp
   ${SRCROOT}/config.cpp
 )
 source_group("" FILES ${SRC})
