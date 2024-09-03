@@ -4,11 +4,6 @@
 
 project(route-master-tests LANGUAGES CXX)
 
-# ---- Dependencies ----
-
-include(Catch)
-list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
-
 include_directories(${CMAKE_BINARY_DIR}/source)
 
 # ---- Tests ----

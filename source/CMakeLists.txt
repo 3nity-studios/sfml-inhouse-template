@@ -67,7 +67,9 @@ target_link_libraries(
   route-master_gui
   nlohmann_json::nlohmann_json
   Designar
+  ${TMXLITE_LIBRARY_RELEASE}
 )
+# TODO: Add support for TMXLITE_DEBUG_RELEASE
 
 # Note: SFML does not properly propagate its requirements and it requires
 #       OpenGL in its install interface when compiled as a static library.

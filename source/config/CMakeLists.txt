@@ -27,14 +27,14 @@ add_library(
 
 target_include_directories(
   route-master_config ${warning_guard}
-  PUBLIC
+  PRIVATE
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/config/include>"
 )
 
-target_compile_features(route-master_config PUBLIC ${RM_REQUIRED_CXX})
+target_compile_features(route-master_config PRIVATE ${RM_REQUIRED_CXX})
 
 target_link_libraries(
   route-master_config
-  PUBLIC
+  PRIVATE
   sfml-graphics
 )

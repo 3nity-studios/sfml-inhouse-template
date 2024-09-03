@@ -49,10 +49,15 @@
 			"settings": {
 				"[cpp]": {
 					"editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
-				}
+				},
+				"cmake.configureOnOpen": true,
+				"editor.formatOnSave": true,
+				"C_Cpp.intelliSenseEngine": "disabled",
+				"cmake.preferredGenerators": ["Unix Makefiles"],
+				"cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+				"git.autofetch": true,
+				"clangd.onConfigChanged": "restart"
 			}
 		}
 	}
-
-	// "postCreateCommand": "cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE"
 }
