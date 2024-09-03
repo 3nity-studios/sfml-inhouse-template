@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS "-w")
 unset(CMAKE_EXE_LINKER_FLAGS)
 unset(CMAKE_SHARED_LINKER_FLAGS)
 unset(CMAKE_CXX_CLANG_TIDY)
+unset(CXX_CLANG_TIDY)
 set(CMAKE_BUILD_TYPE "Release")
 
 include(FetchContent)
