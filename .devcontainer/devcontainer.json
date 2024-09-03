@@ -55,7 +55,8 @@
 				"C_Cpp.intelliSenseEngine": "disabled",
 				"cmake.preferredGenerators": ["Unix Makefiles"],
 				"cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
-				"git.autofetch": true
+				"git.autofetch": true,
+				"clangd.onConfigChanged": "restart"
 			}
 		}
 	}
