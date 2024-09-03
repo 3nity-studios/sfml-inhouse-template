@@ -14,8 +14,8 @@ add_library(
 
 target_include_directories(
   route-master_utilities ${warning_guard}
-  PUBLIC
+  PRIVATE
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/utilities/include>"
 )
 
-target_compile_features(route-master_utilities PUBLIC ${RM_REQUIRED_CXX})
+target_compile_features(route-master_utilities PRIVATE ${RM_REQUIRED_CXX})

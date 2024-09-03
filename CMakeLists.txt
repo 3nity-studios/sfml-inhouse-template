@@ -28,6 +28,7 @@ option(RM_USE_SYSTEM_JSON "Use system's installation of nlohmann's JSON library"
 option(RM_USE_SYSTEM_DESIGNAR "Use system's installation of DeSiGNAR library" OFF)
 option(RM_USE_SYSTEM_SFML "Use system's installation of SFML library" OFF)
 option(RM_USE_SYSTEM_CATCH2 "Use system's installation of Catch2 library" OFF)
+option(RM_USE_SYSTEM_TMXLITE "Use system's installation of TMXLITE library" OFF)
 
 option(USE_INSTALL_RESOURCE_PATH "Set resource path to install location" OFF)
 if(NOT USE_INSTALL_RESOURCE_PATH)

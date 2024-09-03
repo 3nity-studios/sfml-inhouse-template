@@ -18,11 +18,11 @@ add_library(
 
 target_include_directories(
   route-master_gui ${warning_guard}
-  PUBLIC
+  PRIVATE
   "\$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/source/gui/include>"
 )
 
-target_compile_features(route-master_gui PUBLIC ${RM_REQUIRED_CXX})
+target_compile_features(route-master_gui PRIVATE ${RM_REQUIRED_CXX})
 
 target_link_libraries(
   route-master_gui

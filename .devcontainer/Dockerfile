@@ -13,4 +13,4 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
     && python3 -m pip install codespell
 
 # copy endpoint specific user settings overrides into container
-COPY settings.vscode.json /root/.vscode-server/data/Machine/settings.json
+# COPY settings.vscode.json /root/.vscode-server/data/Machine/settings.json
