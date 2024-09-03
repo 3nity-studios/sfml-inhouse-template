@@ -76,7 +76,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/modules/")
 
 # TMXLite doesn't build as a static lib by default so this might prevent future
 # linking errors
-set(TMXLITE_STATIC_LIB ON CACHE BOOL "")
+# set(TMXLITE_STATIC_LIB ON CACHE BOOL "")
 
 if(RM_USE_SYSTEM_TMXLITE)
   find_package(
@@ -92,6 +92,7 @@ else()
     GIT_PROGRESS     TRUE
     EXCLUDE_FROM_ALL
     SYSTEM
+    # PATCH_COMMAND    ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_LIST_DIR}/TMXLITE_CMakeLists.txt" "${CMAKE_CURRENT_BINARY_DIR}/_deps/tmxlite-src/tmxlite/CMakeLists.txt"
   )
   FetchContent_MakeAvailable(tmxlite)
   add_subdirectory(${tmxlite_SOURCE_DIR}/tmxlite SYSTEM)
@@ -121,4 +122,5 @@ if(RM_DEVELOPER_MODE)
   endif()
   include(Catch)
 endif()
+
 endblock()
