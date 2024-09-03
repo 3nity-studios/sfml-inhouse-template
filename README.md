@@ -1,12 +1,31 @@
-<h1 align="center">Route Master</h1>
+<div align="center">
+    <img alt="logo" src="https://images.placeholders.dev/?width=416&height=110&fontFamily=sans-serif&fontWeight=1000&fontSize=42&text=TRINITY%20STUDIOS&bgColor=rgba(0,0,0,0.0)&textColor=rgba(100,90,255,1)"/>
+    <h1>Route Master</h1>
+</div>
 
-![cpp-badge](https://img.shields.io/badge/C%2B%2B%2017-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-![cmake-badge](https://img.shields.io/badge/CMake_3.30.2-064F8C?style=for-the-badge&logo=cmake&logoColor=white)
-![sfml-badge](https://img.shields.io/badge/SFML_2.6.1-4BB000?style=for-the-badge&logo=sfml&logoColor=white)
-![designar-badge](https://img.shields.io/badge/DeSiGNAR_2.0.1-2A2A2A?style=for-the-badge)
-![conventionalcommits-badge](https://img.shields.io/badge/Conventional_Commits_1.0.0-FE5196?style=for-the-badge&logo=conventionalcommits&logoColor=white)
+[![cpp-badge](https://img.shields.io/badge/C%2B%2B%2017-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://en.wikipedia.org/wiki/C%2B%2B17)
+[![cmake-badge](https://img.shields.io/badge/CMake_3.30.2-064F8C?style=for-the-badge&logo=cmake&logoColor=white)](https://cmake.org/)
+[![sfml-badge](https://img.shields.io/badge/SFML_2.6.1-546D23?style=for-the-badge&logo=sfml&logoColor=white)](https://www.sfml-dev.org/)
+[![designar-badge](https://img.shields.io/badge/DeSiGNAR_2.0.1-2A2A2A?style=for-the-badge)](https://github.com/3nity-studios/DeSiGNAR)
+[![conventionalcommits-badge](https://img.shields.io/badge/Conventional_Commits_1.0.0-940C1E?style=for-the-badge&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
 
-## Intro
+## Table of Contents
+   * [Introduction](#introduction)
+   * [Building and installing](#building-and-installing)
+      * [Prerequisites](#prerequisites)
+         * [Installing dependencies](#installing-dependencies)
+      * [Setup](#setup)
+      * [Build](#build)
+      * [Install](#install)
+   * [Developer Information](#developer-information)
+      * [Presets](#presets)
+      * [Configure, build and test](#configure-build-and-test)
+      * [Developer mode targets](#developer-mode-targets)
+      * [Note](#note)
+   * [Contributing](#contributing)
+   * [Acknowledgments](#acknowledgments)
+
+## Introduction
 
 Route Master is a simulation game where you manage a bus company, try to grow
 your earnings by testing different routes, upgrading your fleet or taking
@@ -21,7 +40,7 @@ the DevContainer extension and start developing right away.
 Otherwise, keep on reading to know how to match the needed development
 environment.
 
-> [WARNING]
+> [!WARNING]
 > Neither building on other systems nor cross-compiling is supported for the
 > moment.
 
@@ -33,12 +52,13 @@ System and compiler:
 
 Note: this are the minimum versions on which the project's build process has
 been currently tested. Nonetheless, theoretically speaking, it should suffice
-with a C++17 compatible compiler.
+with any C++17 compatible compiler.
 
 Libraries:
 * SFML
 * DeSiGNAR
 * nlohmann's json
+* tmxlite
 
 Note that to build SFML on Linux you will need the development packages of:
 * XRandr
@@ -102,6 +122,8 @@ can modify in CMakeLists.txt (or in CMakeCache with ccmake/cmake-gui), like:
 | `RM_USE_SYSTEM_JSON`            | BOOL           | Turn ON to use system's installation of nlohmann's JSON             |
 | `RM_USE_SYSTEM_DESIGNAR`        | BOOL           | Turn ON to use system's installation of DeSiGNAR                    |
 | `RM_USE_SYSTEM_SFML`            | BOOL           | Turn ON to use system's installation of SFML                        |
+| `RM_USE_SYSTEM_CATCH2`          | BOOL           | Turn ON to use system's installation of Catch2                      |
+| `RM_USE_SYSTEM_TMXLITE`         | BOOL           | Turn ON to use system's installation of tmxlite                     |
 | `RM_DEVELOPER_MODE`             | BOOL           | Turn ON to enable tests and developer targets of Route Master       |
 
 ### Build
@@ -170,60 +192,29 @@ For example, here's the one we're currently using:
     {
       "name": "dev-common",
       "hidden": true,
-      "inherits": ["dev-mode", "clang-tidy", "cppcheck"],
-      "cacheVariables": {
-        "BUILD_MCSS_DOCS": "ON"
-      }
-    },
-    {
-      "name": "dev-linux",
-      "binaryDir": "${sourceDir}/build/dev-linux",
-      "inherits": ["dev-common", "ci-linux"],
+      "inherits": ["dev-mode", "clang-tidy"],
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     },
     {
-      "name": "dev-darwin",
-      "binaryDir": "${sourceDir}/build/dev-darwin",
-      "inherits": ["dev-common", "ci-darwin"]
-    },
-    {
-      "name": "dev-win64",
-      "binaryDir": "${sourceDir}/build/dev-win64",
-      "inherits": ["dev-common", "ci-win64"],
-      "environment": {
-        "UseMultiToolTask": "true",
-        "EnforceProcessCountAcrossBuilds": "true"
-      }
-    },
-    {
       "name": "dev",
       "binaryDir": "${sourceDir}/build/dev",
-      "inherits": "dev-linux",
+      "inherits": ["dev-common", "ci-linux"],
       "cacheVariables": {
         "RM_USE_SYSTEM_JSON": "TRUE",
         "RM_USE_SYSTEM_DESIGNAR": "TRUE",
-        "RM_USE_SYSTEM_SFML": "TRUE"
+        "RM_USE_SYSTEM_SFML": "TRUE",
+        "RM_USE_SYSTEM_TMXLITE": "TRUE",
+        "RM_USE_SYSTEM_CATCH2": "TRUE"
       }
-    },
-    {
-      "name": "dev-coverage",
-      "binaryDir": "${sourceDir}/build/coverage",
-      "inherits": ["dev-mode", "coverage-linux"]
     }
   ],
   "buildPresets": [
     {
       "name": "dev",
       "configurePreset": "dev",
-      "configuration": "Debug",
-      "jobs": 2
-    },
-    {
-      "name": "dev-linux",
-      "configurePreset": "dev-linux",
       "configuration": "Debug",
       "jobs": 2
     }
@@ -278,33 +269,21 @@ These are targets you may invoke using the build command from above, with an
 additional `-t <target>` flag
 (for example `cmake --build build/dev-linux/ --target format-check`).
 
-#### ~~`coverage`~~
-
-Yeah... no tests.
-
-~~Available if `ENABLE_COVERAGE` is enabled. This target processes the output of~~
-~~the previously run tests when built with coverage configuration. The commands~~
-~~this target runs can be found in the `COVERAGE_TRACE_COMMAND` and~~
-~~`COVERAGE_HTML_COMMAND` cache variables. The trace command produces an info~~
-~~file by default, which can be submitted to services with CI integration. The~~
-~~HTML command uses the trace command's output to generate an HTML document to~~
-~~`<binary-dir>/coverage_html` by default.~~
-
 #### `format-check` and `format-fix`
 
 These targets run the clang-format tool on the codebase to check errors and to
 fix them respectively. Customization available using the `FORMAT_PATTERNS` and
 `FORMAT_COMMAND` cache variables.
 
-#### `run-exe`
-
-Runs the executable target `route-master_exe`.
-
 #### `spell-check` and `spell-fix`
 
 These targets run the codespell tool on the codebase to check errors and to fix
 them respectively. Customization available using the `SPELL_COMMAND` cache
 variable. We configured it to ignore CMakeLists files and uppercase words.
+
+#### `run-exe`
+
+Runs the executable target `route-master_exe`.
 
 ### Note
 
@@ -324,6 +303,7 @@ These are the great projects that make all of this possible:
 * [DeSiGNAR](https://github.com/R3mmurd/DeSiGNAR)
 * [SFML](https://github.com/SFML/SFML)
 * [Catch2](https://github.com/catchorg/Catch2)
+* [tmxlite](https://github.com/fallahn/tmxlite)
 * [JSON for Modern C++](https://github.com/nlohmann/json)
 * [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
 * [cmake-sfml-demo](https://github.com/danebulat/cmake-sfml-demo)
