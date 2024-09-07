@@ -1,7 +1,8 @@
 <div align="center">
-    <img alt="logo" src="https://images.placeholders.dev/?width=416&height=110&fontFamily=sans-serif&fontWeight=1000&fontSize=42&text=TRINITY%20STUDIOS&bgColor=rgba(0,0,0,0.0)&textColor=rgba(100,90,255,1)"/>
-    <h1>Route Master</h1>
-</div>
+    
+![logo](https://images.placeholders.dev/?width=416&height=110&fontFamily=sans-serif&fontWeight=1000&fontSize=42&text=TRINITY%20STUDIOS&bgColor=rgba(0,0,0,0.0)&textColor=rgba(100,90,255,1))
+    
+# Route Master
 
 [![cpp-badge](https://img.shields.io/badge/C%2B%2B%2017-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://en.wikipedia.org/wiki/C%2B%2B17)
 [![cmake-badge](https://img.shields.io/badge/CMake_3.30.2-064F8C?style=for-the-badge&logo=cmake&logoColor=white)](https://cmake.org/)
@@ -9,121 +10,425 @@
 [![designar-badge](https://img.shields.io/badge/DeSiGNAR_2.0.1-2A2A2A?style=for-the-badge)](https://github.com/3nity-studios/DeSiGNAR)
 [![conventionalcommits-badge](https://img.shields.io/badge/Conventional_Commits_1.0.0-940C1E?style=for-the-badge&logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
 
-## Table of Contents
-   * [Introduction](#introduction)
-   * [Building and installing](#building-and-installing)
+</div>
+
+<details>
+<summary><h2 style="display:inline">Table of Contents</h2></summary>
+
+   * [Introduction](#introduction-)
+   * [Building](#building-)
       * [Prerequisites](#prerequisites)
-         * [Installing dependencies](#installing-dependencies)
-      * [Setup](#setup)
+      * [Configurable options](#configurable-options)
       * [Build](#build)
       * [Install](#install)
-   * [Developer Information](#developer-information)
+   * [Hacking](#hacking-)
       * [Presets](#presets)
       * [Configure, build and test](#configure-build-and-test)
       * [Developer mode targets](#developer-mode-targets)
-      * [Note](#note)
-   * [Contributing](#contributing)
-   * [Acknowledgments](#acknowledgments)
+   * [Contributing](#contributing-)
+   * [Acknowledgments](#acknowledgments-)
+    
+</details>
 
-## Introduction
+## Introduction [↑](#route-master)
 
 Route Master is a simulation game where you manage a bus company, try to grow
 your earnings by testing different routes, upgrading your fleet or taking
 risks by signing contracts. Your goal is to become a tycoon in the urban
 transport sector!
 
-## Building and installing
+<details>
 
-For a smooth experience, you can open the repository in Visual Studio Code with
-the DevContainer extension and start developing right away.
+<summary><h3 style="display:inline">Screenshots</h3></summary>
 
-Otherwise, keep on reading to know how to match the needed development
-environment.
+<div align="center">
+
+![title-screen-ss](https://images.placeholders.dev/?width=854&height=480&text=Title%20Screen&bgColor=%23f7f6f6&textColor=%236d6e71&fontSize=32)
+
+Title Screen
+
+![gameplay-screen-1-ss](https://images.placeholders.dev/?width=854&height=480&text=Gameplay%20Screen%201&bgColor=%23f7f6f6&textColor=%236d6e71&fontSize=32)
+
+Gameplay Screen 1
+
+</div>
+
+</details>
+
+## Building [↑](#route-master)
 
 > [!WARNING]
 > Neither building on other systems nor cross-compiling is supported for the
-> moment.
+> moment, everything has been tested only under Debian 11 for the moment.
+
+For a smooth experience, we recommend developing on a Debian-based distro
+through a [DevContainer][4] compatible editor.
+Otherwise, keep on reading to know how to match the needed development
+environment and libraries.
 
 ### Prerequisites
 
-System and compiler:
-* Linux (Debian 11 or newer)
-* gcc (10 or newer) / clang (11 or newer)
+* C++ `17` compatible compiler (gcc/clang `9+` recommended)
+* cmake >= `3.30`
 
-Note: this are the minimum versions on which the project's build process has
-been currently tested. Nonetheless, theoretically speaking, it should suffice
-with any C++17 compatible compiler.
+#### Libraries
 
-Libraries:
-* SFML
-* DeSiGNAR
-* nlohmann's json
-* tmxlite
+The project will try to automatically [fetch and build][5] the following libraries for you
+(see [setup section](#setup)).
 
-Note that to build SFML on Linux you will need the development packages of:
-* XRandr
-* XCursor
-* UDev
-* Freetype
-* OpenAL
-* FLAC
-* Vorbis
-* GL1-Mesa
-* EGL1-Mesa
+Nonetheless, it is important that your system already fulfills the respective dependencies of
+each library.
 
-(Optional) These are some goodies that we use in the development of our project:
-* clang-format
-* clang-tidy
-* cppcheck
-* codespell
+On Linux we recommend building and installing the libraries from their source code using CMake.
+After all, it is our preferred way when developing.
 
-#### Installing dependencies
+On Windows use Visual Studio and feel free to install pre-built libraries if needed.
 
-If you opt for not using the libraries installed in your system (see setup
-section below), then you must install development dependencies in order to build
-the libraries when configuring the project.
-(Note: DeSiGNAR is always downloaded as we roll a slightly modified version of
-this library)
+<ul>
 
+<li>
+<details>
+
+<summary><b>SFML <code>2.6.1</code></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Linux installation steps <a href="https://www.sfml-dev.org/tutorials/2.6/start-linux.php" target="_blank">(guide source)</a></b></summary>
+
+<ul>
+<li>
+<details>
+
+<summary><b>Prerequisites</b></summary>
+
+* freetype
+* x11
+* xrandr
+* udev
+* opengl
+* flac
+* ogg
+* vorbis
+* vorbisenc
+* vorbisfile
+* openal
+* pthread
+
+_Development headers required too_
+
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Building and installing</b></summary>
+
+1. Install required libraries (assuming `Debian 11`)
 ```shell
-sudo apt update
-sudo apt install \
-    libxrandr-dev \
-    libxcursor-dev \
-    libudev-dev \
+$ sudo apt update
+$ sudo apt install \
     libfreetype-dev \
-    libopenal-dev \
+    libx11-dev \
+    libxcursor-dev \
+    libxrandr-dev \
+    libudev-dev \
+    libgl-dev \
     libflac-dev \
     libvorbis-dev \
-    libgl1-mesa-dev \
-    libegl1-mesa-dev
+    libopenal-dev \
 ```
 
-As said, these aren't strictly necessary to build the project but they provide
-some Quality-of-Life features for development worth trying.
+_Package names may differ on other distributions_
 
+2. Download, build and install library
 ```shell
-sudo apt update
-sudo apt install \
-    clang-format \
-    clang-tidy \
-    cppcheck \
-    python3-pip
-python3 -m pip install codespell
+$ git clone --depth 1 --branch 2.6.x https://github.com/SFML/SFML.git
+$ cd SFML
+$ cmake -S . -B build
+$ cmake --build build
+$ sudo cmake --install build
 ```
 
-### Setup
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<details>
 
-Before diving into building, you must know that there are a few options that you
-can modify in CMakeLists.txt (or in CMakeCache with ccmake/cmake-gui), like:
+<summary><b>Windows installation steps <a href="https://www.sfml-dev.org/tutorials/2.6/start-vc.php" target="_blank">(guide source)</a></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Installing</b></summary>
+
+1. Download [SFML SDK](https://www.sfml-dev.org/download/sfml/2.6.1/) corresponding to your Visual Studio version.
+
+</details>
+</li>
+</ul>
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+
+<li>
+<details>
+
+<summary><b>DeSiGNAR <code>2.0.1</code></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Linux installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+1. Download, build and install library (assuming up-to-date `cmake`)
+```shell
+$ git clone --depth 1 --branch v2.0.1 https://github.com/3nity-studios/DeSiGNAR.git
+$ cd DeSiGNAR
+$ cmake -S . -B build
+$ cmake --build build
+$ sudo cmake --install build
+```
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Windows installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Prerequisites</b></summary>
+
+no info
+
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+not supported at the moment
+
+</details>
+</li>
+</ul>
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+
+<li>
+<details>
+
+<summary><b>nlohmann/json <code>3.11.3</code></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Linux installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+1. Download, build and install library (assuming up-to-date `cmake`)
+```shell
+$ git clone --depth 1 --branch v3.11.3 https://github.com/nlohmann/json.git
+$ cd json
+$ cmake -S . -B build
+$ cmake --build build
+$ sudo cmake --install build
+```
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Windows installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Prerequisites</b></summary>
+
+no info
+
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+no info
+
+</details>
+</li>
+</ul>
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+
+<li>
+<details>
+
+<summary><b>Catch2 <code>3.7.0</code></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Linux installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+1. Download, build and install library (assuming up-to-date `cmake`)
+```shell
+$ git clone --depth 1 --branch v3.7.0 https://github.com/catchorg/Catch2.git
+$ cd Catch2
+$ cmake -S . -B build
+$ cmake --build build
+$ sudo cmake --install build
+```
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Windows installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Prerequisites</b></summary>
+
+no info
+
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+no info
+
+</details>
+</li>
+</ul>
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+
+<li>
+<details>
+
+<summary><b>tmxlite <code>1.4.4</code></b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Linux installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+1. Download, build and install library (assuming up-to-date `cmake`)
+```shell
+$ git clone --depth 1 --branch v1.4.4 https://github.com/fallahn/tmxlite.git
+$ cd tmxlite
+$ cmake -S . -B build
+$ cmake --build build
+$ sudo cmake --install build
+```
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Windows installation steps</b></summary>
+<ul>
+<li>
+<details>
+
+<summary><b>Prerequisites</b></summary>
+
+no info
+
+</details>
+</li>
+<li>
+<details>
+
+<summary><b>Building</b></summary>
+
+no info
+
+</details>
+</li>
+</ul>
+
+</details>
+</li>
+</ul>
+</details>
+</li>
+</ul>
+
+### Configurable options
+
+You can modify these in CMakeLists.txt (or in CMakeCache with ccmake/cmake-gui)
 
 |             Option              |      Type      |                             Description                             |
 |         :-------------:         | :------------- |                           :-------------                            |
-| `RM_USE_SYSTEM_JSON`            | BOOL           | Turn ON to use system's installation of nlohmann's JSON             |
-| `RM_USE_SYSTEM_DESIGNAR`        | BOOL           | Turn ON to use system's installation of DeSiGNAR                    |
-| `RM_USE_SYSTEM_SFML`            | BOOL           | Turn ON to use system's installation of SFML                        |
-| `RM_USE_SYSTEM_CATCH2`          | BOOL           | Turn ON to use system's installation of Catch2                      |
-| `RM_USE_SYSTEM_TMXLITE`         | BOOL           | Turn ON to use system's installation of tmxlite                     |
+| `RM_USE_SYSTEM_JSON`            | BOOL           | Turn ON to use system installation of nlohmann's JSON               |
+| `RM_USE_SYSTEM_DESIGNAR`        | BOOL           | Turn ON to use system installation of DeSiGNAR                      |
+| `RM_USE_SYSTEM_SFML`            | BOOL           | Turn ON to use system installation of SFML                          |
+| `RM_USE_SYSTEM_CATCH2`          | BOOL           | Turn ON to use system installation of Catch2                        |
+| `RM_USE_SYSTEM_TMXLITE`         | BOOL           | Turn ON to use system installation of tmxlite                       |
 | `RM_DEVELOPER_MODE`             | BOOL           | Turn ON to enable tests and developer targets of Route Master       |
 
 ### Build
@@ -139,7 +444,7 @@ cmake --build build
 ```
 
 An executable should be generated somewhere in the build folder (presumably
-in the build/source folder)
+in the build/bin folder)
 
 ### Install
 
@@ -149,7 +454,7 @@ commands already.
 
 Here is the command for installing the release mode artifacts, although no
 install rules have been defined for the moment, we plan on keeping things
-portable before delving into installing shenanigans (see --prefix CMake flag).
+rather portable (see --prefix CMake flag) before delving into installing shenanigans.
 
 ```sh
 cmake --install build
@@ -157,7 +462,26 @@ cmake --install build
 
 That's it! From here on, there are some tips for developing.
 
-## Developer information
+## Hacking [↑](#route-master)
+
+**(Optional)** These are some goodies that we use in the development of our project:
+* clang-format
+* clang-tidy
+* cppcheck
+* codespell
+
+These aren't strictly necessary to build the project but they provide
+some Quality-of-Life features for development worth trying.
+
+```shell
+sudo apt update
+sudo apt install \
+    clang-format \
+    clang-tidy \
+    cppcheck \
+    python3-pip
+python3 -m pip install codespell
+```
 
 Build system targets that are only useful for developers of this project are
 hidden if the `RM_DEVELOPER_MODE` option is disabled. Enabling this
@@ -269,34 +593,26 @@ These are targets you may invoke using the build command from above, with an
 additional `-t <target>` flag
 (for example `cmake --build build/dev-linux/ --target format-check`).
 
-#### `format-check` and `format-fix`
+- #### `format-check` and `format-fix`
 
-These targets run the clang-format tool on the codebase to check errors and to
+	These targets run the clang-format tool on the codebase to check errors and to
 fix them respectively. Customization available using the `FORMAT_PATTERNS` and
 `FORMAT_COMMAND` cache variables.
 
-#### `spell-check` and `spell-fix`
+- #### `spell-check` and `spell-fix`
 
-These targets run the codespell tool on the codebase to check errors and to fix
+	These targets run the codespell tool on the codebase to check errors and to fix
 them respectively. Customization available using the `SPELL_COMMAND` cache
 variable. We configured it to ignore CMakeLists files and uppercase words.
 
-#### `run-exe`
+- #### `run-exe`
+	 Runs the executable target `route-master_exe`.
 
-Runs the executable target `route-master_exe`.
+## Contributing [↑](#route-master)
 
-### Note
+Please refer to the [CONTRIBUTING](CONTRIBUTING.md) document.
 
-So far, for development, only Visual Studio Code with [clangd extension][3] has
-been properly tested. If you want to have code completion and get rid of
-unresolved includes you need to run cmake with `-DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE`
-if you're not using the development presets (`dev-*`)
-
-## Contributing
-
-See the [CONTRIBUTING](CONTRIBUTING.md) document.
-
-## Acknowledgments
+## Acknowledgments [↑](#route-master)
 
 These are the great projects that make all of this possible:
 
@@ -305,12 +621,16 @@ These are the great projects that make all of this possible:
 * [Catch2](https://github.com/catchorg/Catch2)
 * [tmxlite](https://github.com/fallahn/tmxlite)
 * [JSON for Modern C++](https://github.com/nlohmann/json)
+
+Repositories that served as reference:
 * [cmake-sfml-project](https://github.com/SFML/cmake-sfml-project)
 * [cmake-sfml-demo](https://github.com/danebulat/cmake-sfml-demo)
 * [cmake-init](https://github.com/friendlyanon/cmake-init)
-* [Doxygen](https://github.com/doxygen/doxygen)
 
 
 [1]: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 [2]: https://cmake.org/download/
 [3]: https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd
+[4]: https://containers.dev/
+[5]: https://cmake.org/cmake/help/latest/module/FetchContent.html
+[6]: https://www.sfml-dev.org/tutorials/2.6/compile-with-cmake.php
