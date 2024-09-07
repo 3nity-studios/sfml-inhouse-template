@@ -68,6 +68,7 @@ target_link_libraries(
   nlohmann_json::nlohmann_json
   Designar
   ${TMXLITE_LIBRARY_RELEASE}
+  sfml-graphics
 )
 # TODO: Add support for TMXLITE_DEBUG_RELEASE
 
